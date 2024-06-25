@@ -6,13 +6,13 @@
 /*   By: akostian <akostian@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:05:59 by akostian          #+#    #+#             */
-/*   Updated: 2024/06/25 14:57:24 by akostian         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:49:45 by akostian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
-#include <stdio.h>
+# include <unistd.h>
 
 void	ft_putchar(int c)
 {

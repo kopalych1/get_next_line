@@ -6,7 +6,7 @@
 /*   By: akostian <akostian@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:03:45 by akostian          #+#    #+#             */
-/*   Updated: 2024/06/25 15:08:16 by akostian         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:48:39 by akostian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,6 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 1024
 #endif
-
-void	print_buffer(char *buffer)
-{
-	int	i;
-
-	printf("Buffer: \n");
-	i = 0;
-	while (i < BUFFER_SIZE + 1)
-	{
-		printf("\\%d", buffer[i]);
-		i++;
-	}
-	printf("\n");
-}
 
 void	move_buffer(char *buffer)
 {
@@ -69,7 +55,6 @@ char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
 	char		*result;
-	size_t		i;
 	size_t		buffer_length;
 
 	result = NULL;

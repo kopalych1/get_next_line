@@ -6,7 +6,7 @@
 /*   By: akostian <akostian@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:03:42 by akostian          #+#    #+#             */
-/*   Updated: 2024/06/25 14:58:06 by akostian         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:49:21 by akostian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define GET_NEXT_LINE_H
 
 # include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
 
 char	*get_next_line(int fd);
 
