@@ -6,71 +6,82 @@
 /*   By: akostian <akostian@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:03:45 by akostian          #+#    #+#             */
-/*   Updated: 2024/06/25 16:48:39 by akostian         ###   ########.fr       */
+/*   Updated: 2024/07/04 03:12:36 by akostian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1024
+# define BUFFER_SIZE 10
 #endif
 
-void	move_buffer(char *buffer)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
-	int	j;
-
-	j = 0;
-	while (j < BUFFER_SIZE && !((buffer[j] < 1) || (buffer[j] == '\n')))
-		j++;
-	i = 0;
-	while (++j < BUFFER_SIZE)
-		buffer[i++] = buffer[j];
-	while (i < (BUFFER_SIZE + 1))
-		buffer[i++] = 0;
+	while (1)
+	{
+		if (*s == c)
+			return ((char *)s);
+		if (!*s)
+			return (NULL);
+		s++;
+	}
 }
 
-// Checks buffer, and rewrites result
-void	check_buffer(char *buffer, char **result)
+char	*check_and_return(char **result)
 {
-	size_t	i;
-	char	is_nl;
+	size_t		i;
+	char		*ret;
+	char		*str;
 
+	str = *result;
 	i = 0;
-	while (i < BUFFER_SIZE)
+	while (i < ft_strlen(str))
 	{
-		is_nl = buffer[i] == '\n';
-		if ((buffer[i] <= 0) || is_nl)
+		if (str[i] == '\n')
 		{
-			*result = ft_strjoin(*result, ft_substr(buffer, 0, i + is_nl));
-			move_buffer(buffer);
-			return ;
+			ret = ft_substr(str, 0, i + 1);
+			*result = &str[i + 1];
+			return (ret);
 		}
 		i++;
 	}
+	return (NULL);
+}
+
+void	clear_buffer(char *buffer)
+{
+	size_t	i;
+
+	i = 0;
+	while (buffer[i])
+		buffer[i++] = 0;
 }
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
-	char		*result;
-	size_t		buffer_length;
+	static char	*result;
+	char		*ret;
+	int			bytes_read;
+	char		buffer[BUFFER_SIZE + 1];
 
-	result = NULL;
 	while (1)
 	{
-		buffer_length = ft_strlen(buffer);
-		if (buffer_length < BUFFER_SIZE)
-			read(fd, buffer + buffer_length, BUFFER_SIZE - buffer_length);
-		if (!ft_strlen(buffer))
-			return (NULL);
-		check_buffer(buffer, &result);
-		if (result)
-			return (result);
+		clear_buffer(buffer);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (!bytes_read)
+		{
+			if (!ft_strchr(result, '\n'))
+				break ;
+			ret = result;
+			result = NULL;
+			return (ret);
+		}
 		result = ft_strjoin(result, buffer);
 		if (!result)
 			return (NULL);
-		move_buffer(buffer);
+		ret = check_and_return(&result);
+		if (ret)
+			return (ret);
 	}
 }
