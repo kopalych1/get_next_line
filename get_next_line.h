@@ -6,7 +6,7 @@
 /*   By: akostian <akostian@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:03:42 by akostian          #+#    #+#             */
-/*   Updated: 2024/06/25 16:49:21 by akostian         ###   ########.fr       */
+/*   Updated: 2024/07/10 07:25:59 by akostian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <fcntl.h>
+# include <unistd.h>
 
 char	*get_next_line(int fd);
 
