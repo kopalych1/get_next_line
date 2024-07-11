@@ -6,7 +6,7 @@
 /*   By: akostian <akostian@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:03:45 by akostian          #+#    #+#             */
-/*   Updated: 2024/07/11 13:43:59 by akostian         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:06:24 by akostian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,21 @@
 
 char	*check_and_return(char **result)
 {
-	size_t		i;
-	char		*ret;
-	char		*result_cpy;
+	const size_t	result_len = ft_strlen(*result);
+	size_t			i;
+	char			*ret;
+	char			*result_cpy;
 
-	result_cpy = *result;
-	if (!result_cpy)
+	if (!result)
 		return (NULL);
+	result_cpy = *result;
 	i = 0;
-	while (i < ft_strlen(result_cpy))
+	while (i < result_len)
 	{
 		if (result_cpy[i] == '\n')
 		{
+			if (!result_cpy[i + 1])
+				return(NULL);
 			ret = ft_substr(result_cpy, 0, i + 1);
 			*result = ft_substr(*result, i + 1, ft_strlen(&result_cpy[i + 1]));
 			free(result_cpy);
@@ -62,7 +65,7 @@ char	*get_next_line(int fd)
 		if (ret)
 			return (ret);
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (!bytes_read)
+		if (bytes_read <= 0)
 		{
 			ret = result;
 			result = NULL;
