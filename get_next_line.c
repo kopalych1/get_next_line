@@ -6,7 +6,7 @@
 /*   By: akostian <akostian@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:03:45 by akostian          #+#    #+#             */
-/*   Updated: 2024/07/10 07:42:29 by akostian         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:43:59 by akostian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,22 @@ char	*check_and_return(char **result)
 		if (result_cpy[i] == '\n')
 		{
 			ret = ft_substr(result_cpy, 0, i + 1);
-			*result = &result_cpy[i + 1];
+			*result = ft_substr(*result, i + 1, ft_strlen(&result_cpy[i + 1]));
+			free(result_cpy);
 			return (ret);
 		}
 		i++;
 	}
 	return (NULL);
+}
+
+void	append_buffer(char **result, char (*buffer)[BUFFER_SIZE + 1])
+{
+	char	*old_result;
+
+	old_result = *result;
+	*result = ft_strjoin(*result, *buffer);
+	free(old_result);
 }
 
 char	*get_next_line(int fd)
@@ -59,20 +69,8 @@ char	*get_next_line(int fd)
 			return (ret);
 		}
 		buffer[bytes_read] = '\0';
-		result = ft_strjoin(result, buffer);
+		append_buffer(&result, &buffer);
 		if (!result)
 			return (NULL);
 	}
 }
-
-/* 
-Should I have used this, to join strings?
-void	append_buffer(char **src, char (*buffer)[BUFFER_SIZE + 1])
-{
-	char	*old_src;
-
-	old_src = *src;
-	*src = ft_strjoin(*src, *buffer);
-	if (old_src)
-		free(old_src);
-} */
