@@ -6,7 +6,7 @@
 /*   By: akostian <akostian@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:03:45 by akostian          #+#    #+#             */
-/*   Updated: 2024/07/11 15:06:24 by akostian         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:05:52 by akostian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*check_and_return(char **result)
 		if (result_cpy[i] == '\n')
 		{
 			if (!result_cpy[i + 1])
-				return(NULL);
+				return (NULL);
 			ret = ft_substr(result_cpy, 0, i + 1);
 			*result = ft_substr(*result, i + 1, ft_strlen(&result_cpy[i + 1]));
 			free(result_cpy);
@@ -54,7 +54,7 @@ void	append_buffer(char **result, char (*buffer)[BUFFER_SIZE + 1])
 
 char	*get_next_line(int fd)
 {
-	static char	*result = NULL;
+	static char	*result;
 	char		*ret;
 	int			bytes_read;
 	char		buffer[BUFFER_SIZE + 1];
